@@ -1,12 +1,15 @@
 <?php
 
+	// Подключение autoload
+	require_once '../vendor/autoload.php';
+
 	// Подключение класса роутера
-	require_once ROOT . '/app/core/Router.php';
+	//require_once '../app/core/router.php';
 
 	// Подключение класса контролера
-	require_once ROOT . '/app/core/Controller.php';
+	//require_once '../app/core/controller.php';
 
 	// Создание объекта роутера
-	$router = new Router();
+	$router = new vl\app\core\router();
 
 	$run = $router->run();
