@@ -4,9 +4,9 @@
 	 *  Класс для примера
 	 */
 
-	class main extends vl\app\core\Controller
+	class mainController extends vl\app\core\controller
 	{
-		public function index()
+		public function indexAction()
 		{
 			// Вывод true (test)
 			$nameSet = vl\app\models\user::setName();
@@ -16,7 +16,7 @@
 
 		}
 
-		public function reg()
+		public function regAction()
 		{
 			echo "main/reg";
 		}

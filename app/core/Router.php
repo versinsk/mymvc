@@ -7,10 +7,10 @@
 		private $routes;
 
 		// Название контроллера
-		private $controller = 'main';
+		private $controller = 'mainController';
 
 		// Название метода 
-		private $method = 'index';
+		private $method = 'indexAction';
 
 		// Параметры
 		private $params = [];
@@ -34,8 +34,8 @@
 					if ($uri[0] . '/' . $uri[1] === $pattern) {
 						// Присваиваем свойству значения
 						$pattern = explode('/', $pattern);
-						$this->controller = $pattern[0];
-						$this->method = $pattern[1];
+						$this->controller = $pattern[0].'Controller';
+						$this->method = $pattern[1].'Action';
 						// Удаление всего лишнего из запроса URI
 						unset($uri[0]);
 						unset($uri[1]);
