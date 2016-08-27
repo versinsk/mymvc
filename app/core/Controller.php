@@ -1,16 +1,12 @@
 <?php
-
-	class Controller
+	namespace vl\app\core;
+	
+	class controller
 	{
-		// Подключаем файл с модулями (по названию)
-		public function model($nameModel)
-		{
-			require_once ROOT . '/app/models/' . $nameModel . '.php';
-		}
-
-		// Подключаем файл с видом (по названию и передаем параметры)
+		
+		// Подключение файла с View
 		public function view($nameView, $data = [])
 		{
-			require_once ROOT . '/app/views/' . $nameView . '.php';
+			require_once '../app/views/' . $nameView . '.php';
 		}
 	}

@@ -1,14 +1,15 @@
 <?php
-
-	class Router
+	namespace vl\app\core;
+	
+	class router
 	{
-		// Массив с шаблонами
+		// Массив с подготовленными запросами
 		private $routes;
 
 		// Название контроллера
 		private $controller = 'main';
 
-		//Название метода 
+		// Название метода 
 		private $method = 'index';
 
 		// Параметры
@@ -16,45 +17,47 @@
 
 		public function __construct()
 		{
-			// Получение масива с шаблонами
-			$routesPath = require_once ROOT . '/app/components/routes.php';
-			$this->routes = $routesPath;
+			// Подключение массива с подготовленными запросами
+			$routes = require_once '../app/config/routes.php';
+			$this->routes = $routes;
 		}
 
 		public function run()
 		{
-			// Получение кусков URI (масив)
+			// Получение отредактированного URI
 			$uri = $this->uri();
+
 			// Строгая проверка на заполненость названия контроллера и названия метода
 			if (!empty($uri[0]) && !empty($uri[1])) {
-				// Перебор и проверка шаблона с URI и заготовленных шаблонов (масива)
+				// Перебор и проверка запроса с URI и заготовленных запросов
 				foreach ($this->routes as $pattern) {
 					if ($uri[0] . '/' . $uri[1] === $pattern) {
-						// Если совпало, то присваиваем значения
+						// Присваиваем свойству значения
 						$pattern = explode('/', $pattern);
 						$this->controller = $pattern[0];
 						$this->method = $pattern[1];
-						// Удаляем с масива название контроллера и метода (остаются параметры)
+						// Удаление всего лишнего из запроса URI
 						unset($uri[0]);
 						unset($uri[1]);
 						break;
 					}
 				}
 			}
-			// Подключаем файл контроллера
-			require_once ROOT . '/app/controllers/' . $this->controller . '.php';
-			// Создаем объект контроллера
+			// Подключение файл контроллера
+			require_once '../app/controllers/' . $this->controller . '.php';
+			// Создание объекта контроллера
 			$this->controller = new $this->controller();
 
-			// Возвращаем параметры, если есть
-			$this->param = isset($uri) ? $uri : [];
+			// Возвращает параметры
+			$this->param = (!empty($uri)) ? $uri : [];
+			
 			call_user_func_array([$this->controller, $this->method], $this->param);
 
 		}
 
 		public function uri()
 		{
-			// Проверка и вывод поделенного URI (масив)
+			// Проверка и редактирование на существование URI 
 			if (isset($_GET['uri']))
 			{
 				return explode('/', rtrim(filter_var($_GET['uri'], FILTER_SANITIZE_URL), '/'));
