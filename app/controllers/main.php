@@ -1,19 +1,20 @@
 <?php
-
+	
 	/**
 	 *  Класс для примера
 	 */
 
-	class main extends vl\app\core\Controller
+	class main extends Controller
 	{
-		public function index()
+		public function index($name = '')
 		{
-echo "string";
+			// Подключаем модуль (по названию)
+			$this->model('user');
 			// Получаем измененное имя
-			$nameSet = vl\app\models\user::setName();
+			$nameSet = user::setName($name);
 
 			// Подключаем вид (по названию и передаем параметры)
-			//$this->view('main/index', [$nameSet]);
+			$this->view('main/index', [$nameSet]);
 
 		}
 

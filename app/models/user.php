@@ -1,10 +1,8 @@
 <?php
-	namespace vl\app\models;
-
 	class user
 	{
-		public static function setName()
+		public static function setName($name)
 		{
-			echo "123";
+			return $name.'test';
 		}
 	}
