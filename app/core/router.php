@@ -57,11 +57,10 @@
 
 		public function uri()
 		{
-			// Проверка и редактирование на существование URI 
-			if (isset($_GET['uri']))
-			{
-				return explode('/', rtrim(filter_var($_GET['uri'], FILTER_SANITIZE_URL), '/'));
-			}
+			// Проверка и редактирование на существование URI
+
+				return explode('/', rtrim(filter_var(($_GET['uri'] ?? 'main/index'), FILTER_SANITIZE_URL), '/'));
+
 		}
 
 	}
